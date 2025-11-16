@@ -1,98 +1,80 @@
-# Hono OpenAPI Starter Kit
+# my-better-t-app
 
-A minimal, type-safe REST API starter kit built with Hono, OpenAPI, Drizzle ORM, PostgreSQL for database. This starter demonstrates how to build fully type-safe APIs with automatic OpenAPI spec generation and beautiful documentation.
-
-## Prerequisites
-
-- Node.js >= 22
-- pnpm
-- Docker and Docker Compose
-- Git
+This project was created with [Better-T-Stack](https://github.com/AmanVarshney01/create-better-t-stack), a modern TypeScript stack that combines React, TanStack Start, Hono, ORPC, and more.
 
 ## Features
 
-- 🔒 **Full Type Safety**: End-to-end type safety from database to API endpoints using TypeScript
-- 📚 **OpenAPI Integration**: Automatic OpenAPI specification generation with Hono OpenAPI
-- 🎯 **Simple Example**: Includes a todo app API showcasing best practices
-- 🔍 **API Documentation**: Built-in Scalar documentation
-- 🛠 **Modern Stack**:
-  - [Hono](https://hono.dev/) - Ultrafast web framework
-  - [Drizzle ORM](https://orm.drizzle.team/) - TypeScript ORM
-  - [@hono/zod-openapi](https://github.com/honojs/middleware/tree/main/packages/zod-openapi) - OpenAPI integration
-  - [Zod](https://zod.dev/) - TypeScript-first schema validation
+- **TypeScript** - For type safety and improved developer experience
+- **TanStack Start** - SSR framework with TanStack Router
+- **TailwindCSS** - Utility-first CSS for rapid UI development
+- **shadcn/ui** - Reusable UI components
+- **Hono** - Lightweight, performant server framework
+- **oRPC** - End-to-end type-safe APIs with OpenAPI integration
+- **Bun** - Runtime environment
+- **Drizzle** - TypeScript-first ORM
+- **SQLite/Turso** - Database engine
+- **Authentication** - Better-Auth
+- **Biome** - Linting and formatting
+- **Husky** - Git hooks for code quality
+- **Turborepo** - Optimized monorepo build system
 
-## Quick Start
+## Getting Started
+
+First, install the dependencies:
 
 ```bash
-# Clone the repository
-git clone https://github.com/irshathcodes/hono-drizzle-openapi-starter
+bun install
+```
+## Database Setup
 
-# Navigate to project directory
-cd hono-drizzle-starter
+This project uses SQLite with Drizzle ORM.
 
-# Install dependencies
-pnpm install
-
-# Set up your environment variables
-cp .env.example .env
-
-# Start the development database
-pnpm dev:db:start
-
-# Run migrations (Run it in a new terminal)
-pnpm dev:db:migrate
-
-# Run the development server
-pnpm dev
-
-# Optional: Seed the database with sample data
-pnpm dev:db:seed
+1. Start the local SQLite database:
+```bash
+cd apps/server && bun db:local
 ```
 
-## API Documentation
 
-Once the server is running, you can access:
+2. Update your `.env` file in the `apps/server` directory with the appropriate connection details if needed.
 
-- OpenAPI documentation at: `http://localhost:3000/doc`
-- Scalar API Reference at: `http://localhost:3000/reference`
+3. Apply the schema to your database:
+```bash
+bun db:push
+```
+
+
+Then, run the development server:
+
+```bash
+bun dev
+```
+
+Open [http://localhost:3001](http://localhost:3001) in your browser to see the web application.
+The API is running at [http://localhost:3000](http://localhost:3000).
+
+
+
+
+
+
 
 ## Project Structure
 
 ```
-src/
-├── api/                  # API routes and handlers
-│   └── todos/           # Todo API implementation
-├── db/                  # Database configuration and schemas
-│   └── schema/         # Drizzle schema definitions
-├── lib/                 # Shared utilities and helpers
-└── use-cases/          # Business logic layer
+my-better-t-app/
+├── apps/
+│   ├── web/         # Frontend application (React + TanStack Start)
+│   └── server/      # Backend API (Hono, ORPC)
 ```
 
-## Key Benefits
+## Available Scripts
 
-1. **Type Safety**: Automatic type inference from your database schema to API endpoints
-2. **Documentation**: OpenAPI spec is generated automatically from your route definitions
-3. **Validation**: Request/response validation using Zod schemas
-4. **Developer Experience**: Great DX with TypeScript autocompletion and inline documentation
-
-## Todos
-
-- [ ] Authentication using [Better Auth](https://better-auth.com)
-- [ ] S3 integration for file uploads
-- [ ] Stripe integration for payment processing
-- [ ] Generic RBAC (Role-Based Access Control) permissions system
-- [ ] Email integration for sending emails using [Resend](https://resend.com)
-- [ ] Linting and formatting
-- [ ] Testing
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-## Credits
-
-This starter kit is inspired by [CJ's hono-open-api-starter](https://github.com/w3cj/hono-open-api-starter) with modifications
-
-## License
-
-MIT
+- `bun dev`: Start all applications in development mode
+- `bun build`: Build all applications
+- `bun dev:web`: Start only the web application
+- `bun dev:server`: Start only the server
+- `bun check-types`: Check TypeScript types across all apps
+- `bun db:push`: Push schema changes to database
+- `bun db:studio`: Open database studio UI
+- `cd apps/server && bun db:local`: Start the local SQLite database
+- `bun check`: Run Biome formatting and linting

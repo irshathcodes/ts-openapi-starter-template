@@ -1,45 +1,27 @@
 {
-  "name": "backend",
+  "name": "ts-backend-starter-template",
+  "private": true,
   "type": "module",
-  "version": "0.0.1",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "scripts": {
-    "build": "tsc",
-    "typecheck": "tsc --noEmit",
-    "prestart": "pnpm db:migrate",
-    "start": "node --env-file=.env ./dist/src",
-    "dev": "tsx watch --env-file=.env src/index.ts",
-    "dev:db:start": "docker compose -f docker-compose.dev.yml up",
-    "dev:db:delete": "docker compose -f docker-compose.dev.yml down -v",
-    "dev:db:seed": "tsx --env-file=.env src/db/seed.ts",
-    "dev:db:reset": "tsx --env-file=.env src/db/reset.ts",
-    "db:migrate": "drizzle-kit migrate",
-    "db:studio": "NODE_OPTIONS='--import tsx' drizzle-kit studio",
-    "db:push": "NODE_OPTIONS='--import tsx' drizzle-kit push",
-    "db:generate": "NODE_OPTIONS='--import tsx' drizzle-kit generate"
+    "clean-install": "rm -rf node_modules && cd apps/server && rm -rf node_modules && cd ../web && rm -rf node_modules && bun install",
+    "check": "biome check --write .",
+    "prepare": "husky",
+    "dev": "bun --filter '*' dev"
   },
-  "dependencies": {
-    "@hono/node-server": "^1.13.8",
-    "@hono/zod-openapi": "^0.18.4",
-    "@scalar/hono-api-reference": "^0.5.175",
-    "drizzle-orm": "^0.37.0",
-    "drizzle-seed": "^0.3.1",
-    "drizzle-zod": "^0.5.1",
-    "hono": "^4.7.2",
-    "hono-pino": "^0.6.0",
-    "pino": "^9.6.0",
-    "pino-pretty": "^12.1.0",
-    "postgres": "^3.4.5",
-    "zod": "^3.24.2"
-  },
+  "dependencies": {},
   "devDependencies": {
-    "@types/node": "^20.17.19",
-    "dotenv-cli": "^8.0.0",
-    "drizzle-kit": "^0.29.1",
-    "prettier": "^3.5.2",
-    "tsx": "^4.19.3",
-    "typescript": "^5.7.3"
+    "@biomejs/biome": "^2.2.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.1.2"
   },
-  "engines": {
-    "node": "22.x"
-  }
+  "lint-staged": {
+    "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}": [
+      "biome check --write ."
+    ]
+  },
+  "packageManager": "bun@1.2.22"
 }
